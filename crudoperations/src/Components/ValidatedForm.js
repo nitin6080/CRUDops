@@ -4,7 +4,7 @@ import { validEmail, validPassword } from "./Regex";
 
 const ValidatedForm = ({
   userData,
-  setUserData = () => null, //
+  setUserData = () => null, //default value given setUserData function to avoid
   editMode,
   setEditMode,
 }) => {
@@ -50,13 +50,20 @@ const ValidatedForm = ({
     };
     // debugger;
     if (editMode) {
-      const updatedUserData = userData.map((user) =>
-        user.username === newUser.username ? newUser : user
-      );
+      const { id } = editMode || {};
+      console.log(editMode);
+      const updatedUserData = userData.map((user) => {
+        console.log({ user });
+        return user.id === id ? newUser : user;
+      });
       setUserData(updatedUserData);
       setEditMode(false);
     } else {
-      setUserData((prevUserData) => [...prevUserData, newUser]);
+      const data = {
+        ...newUser,
+        id: new Date().getTime(),
+      };
+      setUserData((prevUserData) => [...prevUserData, data]);
     }
 
     navigate("/"); // Navigate back to the list after updating or adding a user

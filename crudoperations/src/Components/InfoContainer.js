@@ -47,7 +47,7 @@ const InfoContainer = ({ userData, setUserData, setEditMode }) => {
               <td>
                 <button
                   onClick={() => {
-                    setEditMode(true);
+                    setEditMode({ id: data?.id });
                     editUserData(index);
                   }}
                 >
